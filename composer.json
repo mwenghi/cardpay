@@ -1,0 +1,32 @@
+{
+    "name": "jannza/cardpay",
+    "type": "library",
+    "description": "Cardpay driver for the Omnipay payment processing library",
+    "keywords": [
+        "cardpay",
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment"
+    ],
+    "homepage": "https://github.com/jannza/cardpay",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "jannza",
+            "homepage": "https://github.com/jannza/cardpay/contributors"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Omnipay\\Cardpay\\" : "src/" }
+    },
+    "require": {
+        "omnipay/common": "~2.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

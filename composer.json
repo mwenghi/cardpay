@@ -1,5 +1,5 @@
 {
-    "name": "jannza/cardpay",
+    "name": "qobo/cardpay",
     "type": "library",
     "description": "Cardpay driver for the Omnipay payment processing library",
     "keywords": [

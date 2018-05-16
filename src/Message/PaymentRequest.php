@@ -138,13 +138,23 @@ class PaymentRequest extends AbstractRequest
     {
         return $this->setParameter('cancel_url', $value);
     }
+
+    public function getIsTwoPhase()
+    {
+        return $this->getParameter('is_two_phase');
+    }
+
+    public function setIsTwoPhase($value)
+    {
+        return $this->setParameter('is_two_phase', $value);
+    }
     
     public function getData()
     {
-        $input = array
-        (
-            'order' => array
-            (
+        $this->validate('number', 'currency', 'amount');
+
+        $input = [
+            'order' => [
                 'wallet_id' => $this->getUsername(),
                 'number' => $this->getNumber(),
                 'description' => $this->getDescription(),
@@ -153,19 +163,24 @@ class PaymentRequest extends AbstractRequest
                 'email' => $this->getEmail(),
                 'locale' => $this->getLocale(),
                 'note' => $this->getNote(),
+                'is_two_phase' => $this->getIsTwoPhase(),
                 'success_url' => $this->getSuccessUrl(),
                 'decline_url' => $this->getDeclineUrl(),
                 'cancel_url' => $this->getCancelUrl(),
-            )
-        );
-        $xmlObject = Xml::build($input, array('format' => 'attributes'));
+            ]
+        ];
+
+        $xmlObject = Xml::build($input, [
+            'format' => 'attributes'
+        ]);
         $xmlString = $xmlObject->asXML();
+        
         $sha = hash('sha512', $xmlString.$this->getPassword());
-        $data = array
-        (
+        
+        $data = [
             'orderXML' => base64_encode($xmlString),
             'sha512' => $sha
-        );
+        ];
 
         return $data;
     }
@@ -174,5 +189,4 @@ class PaymentRequest extends AbstractRequest
     {
         return new PaymentResponse($this, $data, $this->getEndpoint());
     }
-
 }

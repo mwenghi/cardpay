@@ -139,9 +139,6 @@ class ChangeOrderStatusRequest extends AbstractRequest
             $response = $e->getResponse();
         }
         
-        error_log(__METHOD__ . ": data=" . print_r($data, true) . "\n", 3, '/tmp/payment.log');
-        error_log(__METHOD__ . ": response=" . print_r($response->xml(), true) . "\n", 3, '/tmp/payment.log');
-
         return new ChangeOrderStatusResponse($this, $response->xml());
     }
 }

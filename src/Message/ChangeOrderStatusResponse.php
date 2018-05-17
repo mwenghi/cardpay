@@ -7,36 +7,70 @@ use Cake\Utility\Xml;
 
 class ChangeOrderStatusResponse extends AbstractResponse
 {
+    const IS_EXECUTED_YES = 'yes';
+    const IS_EXECUTED_NO = 'no';
+    const STATUS_SUCCESSFUL = 'successful';
+    const STATUS_FAILED = 'failed';
+
     public function __construct($changeOrderStatusRequest, $data)
     {
-        error_log(__METHOD__ . ": got data: " . print_r($data, true) . "\n", 3, '/tmp/payment.log');
-
+        $this->order = current($data->attributes());
+        $this->order = array_merge($this->order, current($data->order->attributes()));
         
-        $this->raw = $data;
-        $xml = Xml::build($data);
-        error_log(__METHOD__ . ': attributes: ' . print_r(current($xml->attributes()), true) . "\n", 3, '/tmp/payment.log');
-        $this->data = current($xml->attributes());
-
         parent::__construct($changeOrderStatusRequest, $data);
     }
 
     /**
+     * isSuccessful method
+     *
      * @return bool
      */
     public function isSuccessful()
     {
-        return $this->getStatus() == 'accepted';
+        return $this->getStatus() == self::STATUS_SUCCESSFUL;
     }
 
      /**
-     * @return null|string
-     */
+      * getStatus method
+      *
+      * @return string
+      */
     public function getStatus()
     {
-        if (!isset($this->data['transaction']) || !isset($this->data['transaction']['status'])) {
-            return null;
+        if (isset($this->order['is_executed']) && $this->order['is_executed'] == self::IS_EXECUTED_YES) {
+            return self::STATUS_SUCCESSFUL;
         }
         
-        return $this->data['transaction']['status'];
+        return self::STATUS_FAILED;
+    }
+    
+    /**
+     * getMessage method
+     *
+     * @return string | null
+     */
+    public function getMessage()
+    {
+        return $this->order['details'];
+    }
+
+    /**
+     * getTransactionReference method
+     *
+     * @return string | null
+     */
+    public function getTransactionReference()
+    {
+        return $this->order['id'];
+    }
+
+    /**
+     * getTransactionId method
+     *
+     * @return string | null
+     */
+    public function getTransactionId()
+    {
+        return $this->order['id'];
     }
 }

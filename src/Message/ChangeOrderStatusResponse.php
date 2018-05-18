@@ -51,7 +51,7 @@ class ChangeOrderStatusResponse extends AbstractResponse
      */
     public function getMessage()
     {
-        return $this->order['details'];
+        return !empty($this->order['details']) ? $this->order['details'] : '';
     }
 
     /**

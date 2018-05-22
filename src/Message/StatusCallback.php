@@ -55,7 +55,7 @@ class StatusCallback extends AbstractResponse
 
     public function idFilled()
     {
-        return ($this->order['id'] != '' ? true : false);
+        return $this->order['id'] != '' ? true : false;
     }
 
     public function getOrder()

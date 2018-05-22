@@ -1,5 +1,4 @@
 <?php
-
 namespace Omnipay\Cardpay\Message;
 
 use Omnipay\Common\Message\AbstractRequest;

@@ -53,14 +53,20 @@ class StatusCallback extends AbstractResponse
         return $this->order['card_holder'];
     }
 
-    public function IdFilled(){
+    public function idFilled()
+    {
         return ($this->order['id'] != '' ? true : false);
     }
 
-    public function ValidSignature($password){
-        $concat = mb_strtolower(hash('sha512', $this->xml.$password));
-        $valid = $concat == mb_strtolower($this->hash);
-        return $valid;
+    public function getOrder()
+    {
+        return $this->order;
     }
 
+    public function validSignature($password)
+    {
+        $hash = mb_strtolower(hash('sha512', $this->xml . $password));
+        
+        return $hash == mb_strtolower($this->hash) ? true : false;
+    }
 }

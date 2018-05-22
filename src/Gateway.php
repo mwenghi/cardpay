@@ -50,6 +50,27 @@ class Gateway extends AbstractGateway
     {
         return $this->getParameter('password');
     }
+
+    /**
+     * getSignature method
+     *
+     * @return string
+     */
+    public function getSignature()
+    {
+        return $this->getParameter('signature');
+    }
+    
+    /**
+     * setSignature method
+     *
+     * @param string $value to set as signature
+     * @return string
+     */
+    public function setSignature($value)
+    {
+        return $this->setParameter('signature', $value);
+    }
     
     /**
      * setPassword method
@@ -95,5 +116,16 @@ class Gateway extends AbstractGateway
     public function capture(array $parameters = []) 
     {
         return $this->createRequest('\Omnipay\Cardpay\Message\ChangeOrderStatusRequest', $parameters);
+    }
+
+    /**
+     * completeAuthorize method
+     *
+     * @param array $parameters to create completeAuthorize request
+     * @return \Omnipay\Cardpay\Message\CompletePaymentRequest
+     */
+    public function completeAuthorize(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\Cardpay\Message\CompletePaymentRequest', $parameters);
     }
 }

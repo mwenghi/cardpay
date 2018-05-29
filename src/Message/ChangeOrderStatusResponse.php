@@ -61,7 +61,7 @@ class ChangeOrderStatusResponse extends AbstractResponse
      */
     public function getTransactionReference()
     {
-        return $this->order['id'];
+        return !empty($this->order['id']) ? $this->order['id'] : null;
     }
 
     /**
@@ -71,6 +71,6 @@ class ChangeOrderStatusResponse extends AbstractResponse
      */
     public function getTransactionId()
     {
-        return $this->order['id'];
+        return !empty($this->order['id']) ? $this->order['id'] : null;
     }
 }

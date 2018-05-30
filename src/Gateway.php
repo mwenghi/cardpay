@@ -115,6 +115,47 @@ class Gateway extends AbstractGateway
      */
     public function capture(array $parameters = []) 
     {
+        $parameters['status_to'] = 'capture';
+
+        return $this->createRequest('\Omnipay\Cardpay\Message\ChangeOrderStatusRequest', $parameters);
+    }
+
+    /**
+     * payout method 
+     *
+     * @param array $parameters to create payout request
+     * @return \Omnipay\Cardpay\Message\ChangeOrderStatusRequest
+     */
+    public function payout(array $parameters = []) 
+    {
+        $parameters['status_to'] = 'payout';
+
+        return $this->createRequest('\Omnipay\Cardpay\Message\ChangeOrderStatusRequest', $parameters);
+    }
+
+    /**
+     * void method 
+     *
+     * @param array $parameters to create void request
+     * @return \Omnipay\Cardpay\Message\ChangeOrderStatusRequest
+     */
+    public function void(array $parameters = []) 
+    {
+        $parameters['status_to'] = 'void';
+
+        return $this->createRequest('\Omnipay\Cardpay\Message\ChangeOrderStatusRequest', $parameters);
+    }
+    
+    /**
+     * refund method 
+     *
+     * @param array $parameters to create refund request
+     * @return \Omnipay\Cardpay\Message\ChangeOrderStatusRequest
+     */
+    public function refund(array $parameters = []) 
+    {
+        $parameters['status_to'] = 'refund';
+
         return $this->createRequest('\Omnipay\Cardpay\Message\ChangeOrderStatusRequest', $parameters);
     }
 

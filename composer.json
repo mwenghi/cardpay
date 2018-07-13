@@ -1,5 +1,5 @@
 {
-    "name": "qobo/cardpay",
+    "name": "mwenghi/cardpay",
     "type": "library",
     "description": "Cardpay driver for the Omnipay payment processing library",
     "keywords": [
